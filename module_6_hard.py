@@ -40,7 +40,7 @@ class Figure:
         ch_=True
         if len(new_sides) == self.sides_count:
             for i in new_sides:
-                if i <= 0 or not type(int(i)):
+                if i <= 0 or not isinstance(i, int):
                     return False
         else: return False
         return ch_
