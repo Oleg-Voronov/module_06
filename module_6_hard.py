@@ -2,10 +2,10 @@ from math import pi,sqrt
 
 class Figure:
     sides_count = 0
-    _sides = []
-    _color = [0,0,0]
-    filled = False
     def __init__(self,*args):
+        self._sides = []
+        self._color = [0, 0, 0]
+        self.filled = False
         if self.sides_count > 0:
             args = list(args)
             colors = args.pop(0)
@@ -16,7 +16,7 @@ class Figure:
         return self._color
     def set_color(self,*colors):
         if self.__if_valid_color(*colors):
-            self._color = colors
+            self._color = list(colors)
     def __if_valid_color(self, *colors): #bool
         k = len(colors)
         ch_ = False
@@ -30,7 +30,7 @@ class Figure:
         return self._sides
     def set_sides(self,*new_sides):
         if self.__is_valid_sides(*new_sides):
-            self._sides = new_sides
+            self._sides = list(new_sides)
         else:
             self._sides = list([])
             for i in range(0,self.sides_count):
@@ -66,6 +66,9 @@ class Triangle(Figure):
 class Cube(Figure):
     sides_count = 12
     def __init__(self,colors,*L_):
+        self._sides = []
+        self._color = [0, 0, 0]
+        self.filled = False
         self.set_color(colors)
         self.set_sides(*L_)
 
@@ -87,45 +90,19 @@ class Cube(Figure):
 
 
 if __name__ == '__main__':
-    # fig = Figure()
-    # print(fig.get_color())
-    # fig.set_color(200,23,200)
-    # print(fig.get_color())
-    # print(len(fig))
-    print('------------')
-    # circle1 = Circle((200, 200, 100), 10)
-    # print(circle1.get_sides())
-    # print(circle1.get_color())
-    # circle1.set_color(20,20,20)
-    # print(circle1.get_color())
-    # circle1.set_sides(5,5,5)
-    # print(circle1.get_sides())
-    # print(circle1.get_square())
-    # circle1.set_sides(5)
-    # print(circle1.get_sides())
-    print('------------')
-    # triangle = Triangle((200,100,100),3,4,5)
-    # triangle.set_color(26,25,25)
-    # print(triangle.get_sides())
-    # print(triangle.get_color())
-    # print(triangle.get_square())
-    # triangle.set_sides(5,5,5)
-    # print(triangle.get_sides())
-    # print(triangle.get_square())
-    print('-----------------')
-    cube = Cube((200,100,100),3)
-    print(cube.get_color())
-    print(cube.get_sides())
-    print(cube.get_volume())
-    print('-')
-    cube.set_color(10,10,10)
-    print(cube.get_color())
-    cube.set_sides(5)
-    print(cube.get_sides())
-    print(cube.get_volume())
-    print('-')
-    cube.set_color(-5, 10, 10)
-    print(cube.get_color())
-    cube.set_sides(7,2,3)
-    print(cube.get_sides())
-    print(cube.get_volume())
+    circle1 = Circle((200, 200, 100), 10)  # (Цвет, стороны)
+    cube1 = Cube((222, 35, 130), 6)
+    # Проверка на изменение цветов:
+    circle1.set_color(55, 66, 77)  # Изменится
+    print(circle1.get_color())
+    cube1.set_color(300, 70, 15)  # Не изменится
+    print(cube1.get_color())
+    # Проверка на изменение сторон:
+    cube1.set_sides(5, 3, 12, 4, 5)  # Не изменится
+    print(cube1.get_sides())
+    circle1.set_sides(15)  # Изменится
+    print(circle1.get_sides())
+    # Проверка периметра (круга), это и есть длина:
+    print(len(circle1))
+    # Проверка объёма (куба):
+    print(cube1.get_volume())
